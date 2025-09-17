@@ -1,8 +1,11 @@
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:shopping_app/feature/app_section/app_section.dart';
-import 'package:shopping_app/feature/auth/view/login_screen.dart';
-import 'package:shopping_app/feature/auth/view/register_screen.dart';
+import 'package:shopping_app/feature/auth/data/repo/repository/auth_repository_impl.dart';
+import 'package:shopping_app/feature/auth/presentation/view/login_screen.dart';
+import 'package:shopping_app/feature/auth/presentation/view/register_screen.dart';
+import 'package:shopping_app/feature/auth/presentation/view_model/login/login_cubit.dart';
+import 'package:shopping_app/feature/auth/presentation/view_model/register/register_cubit.dart';
 import 'package:shopping_app/feature/onboarding/onboarding_screen.dart';
 
 void main() async {
@@ -16,11 +19,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: "User App",
-      initialRoute: AppSection.routeName,
+      debugShowCheckedModeBanner: false,
+      initialRoute: LoginScreen.routeName,
       routes: {
         OnboardingScreen.routeName: (context) => const OnboardingScreen(),
-        LoginScreen.routeName: (context) => const LoginScreen(),
-        RegisterScreen.routeName: (context) => const RegisterScreen(),
+        LoginScreen.routeName: (context) => BlocProvider(
+          create: (context) => LoginCubit(injectableAuthRepository()),
+          child: const LoginScreen(),
+        ),
+        RegisterScreen.routeName: (context) => BlocProvider(
+          create: (context) => RegisterCubit(injectableAuthRepository()),
+          child: const RegisterScreen(),
+        ),
         AppSection.routeName: (context) => const AppSection(),
       },
     );
