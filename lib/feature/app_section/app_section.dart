@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:shopping_app/feature/cart/view/cart_screen.dart';
 import 'package:shopping_app/feature/favorite/view/favorite_screen.dart';
-import 'package:shopping_app/feature/home/view/home_screen.dart';
+import 'package:shopping_app/feature/home/data/repo/repository/home_repository_impl.dart';
+import 'package:shopping_app/feature/home/presentation/view/home_screen.dart';
+import 'package:shopping_app/feature/home/presentation/view_model/home/home_cubit.dart';
 import 'package:shopping_app/feature/profile/view/profile_screen.dart';
 
 class AppSection extends StatefulWidget {
@@ -15,7 +18,12 @@ class AppSection extends StatefulWidget {
 
 class _AppSectionState extends State<AppSection> {
   List<Widget> widgetList = [
-    HomeScreen(),
+    BlocProvider(
+      create: (context) => HomeCubit(injectableHomeRepository())
+        ..getAllCategories()
+        ..getProductsByCategory(1),
+      child: HomeScreen(),
+    ),
     CartScreen(),
     FavoriteScreen(),
     ProfileScreen(),
@@ -26,6 +34,7 @@ class _AppSectionState extends State<AppSection> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       bottomNavigationBar: BottomNavigationBar(
         unselectedFontSize: 13,
         selectedFontSize: 14,
