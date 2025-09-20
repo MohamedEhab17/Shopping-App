@@ -26,6 +26,17 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
+  Future<void> getAllProducts() async {
+    emit(HomeProductsByCategoryLoading());
+    final result = await _repository.getAllProducts();
+    switch (result) {
+      case NetworkSuccess<List<HomeProductsByCategoryIdResponseDto>>():
+        emit(HomeProductsByCategorySuccess());
+        products = result.data;
+      case NetworkError<List<HomeProductsByCategoryIdResponseDto>>():
+        emit(HomeProductsByCategoryError());
+    }
+  }
   Future<void> getProductsByCategory(int id) async {
     emit(HomeProductsByCategoryLoading());
     final result = await _repository.getProductsByCategory(id);

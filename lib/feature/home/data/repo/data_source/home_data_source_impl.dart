@@ -14,6 +14,9 @@ class HomeDataSourceImpl implements HomeDataSourceContract {
   @override
   Future<NetworkResult<List<HomeProductsByCategoryIdResponseDto>>>
   getProductsByCategory(int id) async => await _api.getProductsByCategory(id);
+  
+  @override
+  Future<NetworkResult<List<HomeProductsByCategoryIdResponseDto>>> getAllProducts() async => await _api.getAllProducts();
 }
 
 HomeDataSourceContract injectableHomeDataSource() =>

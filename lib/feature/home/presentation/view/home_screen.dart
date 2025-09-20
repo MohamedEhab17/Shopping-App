@@ -64,9 +64,7 @@ class HomeScreen extends StatelessWidget {
                   await context.read<HomeCubit>().getProductsByCategory(
                     categories[index].id!,
                   );
-                  context.read<HomeCubit>().getProductsByCategory(
-                    categories[index].id ?? 1,
-                  );
+                  await context.read<HomeCubit>().getAllProducts();
                 },
               ),
               SizedBox(height: 16),

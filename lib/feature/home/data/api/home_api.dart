@@ -25,6 +25,27 @@ class HomeApi {
     }
   }
 
+  Future<NetworkResult<List<HomeProductsByCategoryIdResponseDto>>> getAllProducts() async {
+    try {
+      //  https://api.escuelajs.co/api/v1/products/
+      Uri url = Uri.https(
+        "api.escuelajs.co",
+        "/api/v1/products/",
+      );
+      var response = await http.get(url);
+      List<dynamic> json = jsonDecode(response.body);
+      List<HomeProductsByCategoryIdResponseDto> list = json
+          .map(
+            (element) => HomeProductsByCategoryIdResponseDto.fromJson(element),
+          )
+          .toList();
+      return NetworkSuccess(list);
+    } catch (e) {
+      return NetworkError(e.toString());
+    }
+  }
+
+
   Future<NetworkResult<List<HomeProductsByCategoryIdResponseDto>>> getProductsByCategory(int id) async {
     try {
       //https://api.escuelajs.co/api/v1/categories/:categoryId/products

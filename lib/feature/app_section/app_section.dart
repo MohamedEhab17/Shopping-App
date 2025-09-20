@@ -21,7 +21,7 @@ class _AppSectionState extends State<AppSection> {
     BlocProvider(
       create: (context) => HomeCubit(injectableHomeRepository())
         ..getAllCategories()
-        ..getProductsByCategory(1),
+        ..getAllProducts(),
       child: HomeScreen(),
     ),
     CartScreen(),

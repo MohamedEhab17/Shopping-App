@@ -16,6 +16,10 @@ class HomeRepositoryImpl implements HomeRepositoryContract {
   Future<NetworkResult<List<HomeProductsByCategoryIdResponseDto>>>
   getProductsByCategory(int id) =>
       _homeDataSourceContract.getProductsByCategory(id);
+
+  @override
+  Future<NetworkResult<List<HomeProductsByCategoryIdResponseDto>>>
+  getAllProducts() => _homeDataSourceContract.getAllProducts();
 }
 
 HomeRepositoryContract injectableHomeRepository() =>

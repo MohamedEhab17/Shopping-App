@@ -4,7 +4,8 @@ import 'package:shopping_app/feature/home/data/model/response/home_products_by_c
 
 abstract class HomeDataSourceContract {
   Future<NetworkResult<List<HomeCategoryResponseDto>>> getAllCategories();
-
+  Future<NetworkResult<List<HomeProductsByCategoryIdResponseDto>>>
+  getAllProducts();
   Future<NetworkResult<List<HomeProductsByCategoryIdResponseDto>>>
   getProductsByCategory(int id);
 }
