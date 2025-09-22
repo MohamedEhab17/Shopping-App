@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:shopping_app/core/network/network.dart';
 import 'package:shopping_app/feature/home/data/model/response/home_category_response_dto.dart';
-import 'package:shopping_app/feature/home/data/model/response/home_products_by_category_id_dto.dart';
+import 'package:shopping_app/feature/home/data/model/response/home_products_dto.dart';
 
 class HomeApi {
   HomeApi._();
@@ -25,19 +25,14 @@ class HomeApi {
     }
   }
 
-  Future<NetworkResult<List<HomeProductsByCategoryIdResponseDto>>> getAllProducts() async {
+  Future<NetworkResult<List<HomeProductsResponseDto>>> getAllProducts() async {
     try {
       //  https://api.escuelajs.co/api/v1/products/
-      Uri url = Uri.https(
-        "api.escuelajs.co",
-        "/api/v1/products/",
-      );
+      Uri url = Uri.https("api.escuelajs.co", "/api/v1/products/");
       var response = await http.get(url);
       List<dynamic> json = jsonDecode(response.body);
-      List<HomeProductsByCategoryIdResponseDto> list = json
-          .map(
-            (element) => HomeProductsByCategoryIdResponseDto.fromJson(element),
-          )
+      List<HomeProductsResponseDto> list = json
+          .map((element) => HomeProductsResponseDto.fromJson(element))
           .toList();
       return NetworkSuccess(list);
     } catch (e) {
@@ -45,8 +40,9 @@ class HomeApi {
     }
   }
 
-
-  Future<NetworkResult<List<HomeProductsByCategoryIdResponseDto>>> getProductsByCategory(int id) async {
+  Future<NetworkResult<List<HomeProductsResponseDto>>> getProductsByCategory(
+    int id,
+  ) async {
     try {
       //https://api.escuelajs.co/api/v1/categories/:categoryId/products
       Uri url = Uri.https(
@@ -55,10 +51,8 @@ class HomeApi {
       );
       var response = await http.get(url);
       List<dynamic> json = jsonDecode(response.body);
-      List<HomeProductsByCategoryIdResponseDto> list = json
-          .map(
-            (element) => HomeProductsByCategoryIdResponseDto.fromJson(element),
-          )
+      List<HomeProductsResponseDto> list = json
+          .map((element) => HomeProductsResponseDto.fromJson(element))
           .toList();
       return NetworkSuccess(list);
     } catch (e) {

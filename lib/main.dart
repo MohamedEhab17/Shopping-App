@@ -10,6 +10,8 @@ import 'package:shopping_app/feature/auth/presentation/view_model/login/login_cu
 import 'package:shopping_app/feature/auth/presentation/view_model/register/register_cubit.dart';
 import 'package:shopping_app/feature/onboarding/onboarding_screen.dart';
 
+import 'feature/home/presentation/view/product_details.dart';
+
 void main() {
   runApp(const ECommerceApp());
 }
@@ -34,6 +36,7 @@ class ECommerceApp extends StatelessWidget {
           child: const RegisterScreen(),
         ),
         AppSection.routeName: (context) => const AppSection(),
+        ProductDetails.routeName: (context) => const ProductDetails(),
       },
 
       builder: (context, child) {

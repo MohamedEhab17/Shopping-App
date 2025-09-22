@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:shopping_app/feature/home/data/model/response/home_category_response_dto.dart';
+import 'package:shopping_app/feature/home/domain/entities/category_entity.dart';
 import 'package:shopping_app/feature/home/presentation/widgets/tab_item_widget.dart';
 
 class TabContainerWidget extends StatefulWidget {
   const TabContainerWidget({super.key, required this.categories, this.onTap});
-  final List<HomeCategoryResponseDto> categories;
+  final List<CategoryEntity> categories;
   final void Function(int)? onTap;
 
   @override

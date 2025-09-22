@@ -1,3 +1,5 @@
+import 'package:shopping_app/feature/home/domain/entities/category_entity.dart';
+
 class HomeCategoryResponseDto {
   int? id;
   String? name;
@@ -22,5 +24,14 @@ class HomeCategoryResponseDto {
     image = json['image'];
     creationAt = json['creationAt'];
     updatedAt = json['updatedAt'];
+  }
+
+  CategoryEntity toEntity() {
+    return CategoryEntity(
+      id: id ?? 1,
+      name: name ?? "",
+      slug: slug ?? "",
+      image: image ?? "",
+    );
   }
 }

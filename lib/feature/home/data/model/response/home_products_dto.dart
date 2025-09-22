@@ -1,6 +1,7 @@
 import 'package:shopping_app/feature/home/data/model/response/home_category_response_dto.dart';
+import 'package:shopping_app/feature/home/domain/entities/product_entity.dart';
 
-class HomeProductsByCategoryIdResponseDto {
+class HomeProductsResponseDto {
   int? id;
   String? title;
   String? slug;
@@ -11,7 +12,7 @@ class HomeProductsByCategoryIdResponseDto {
   String? creationAt;
   String? updatedAt;
 
-  HomeProductsByCategoryIdResponseDto({
+  HomeProductsResponseDto({
     this.id,
     this.title,
     this.slug,
@@ -23,7 +24,7 @@ class HomeProductsByCategoryIdResponseDto {
     this.updatedAt,
   });
 
-  HomeProductsByCategoryIdResponseDto.fromJson(Map<String, dynamic> json) {
+  HomeProductsResponseDto.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     slug = json['slug'];
@@ -37,6 +38,15 @@ class HomeProductsByCategoryIdResponseDto {
     updatedAt = json['updatedAt'];
   }
 
-  
+  ProductEntity toEntity() {
+    return ProductEntity(
+      id: id ?? 1,
+      title: title ?? "",
+      slug: slug ?? "",
+      price: price ?? 0,
+      description: description ?? "",
+      category: category!.toEntity(),
+      images: images ?? [],
+    );
+  }
 }
-

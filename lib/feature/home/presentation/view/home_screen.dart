@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:shopping_app/feature/home/data/model/response/home_category_response_dto.dart';
-import 'package:shopping_app/feature/home/data/model/response/home_products_by_category_id_dto.dart';
+import 'package:shopping_app/feature/home/domain/entities/category_entity.dart';
+import 'package:shopping_app/feature/home/domain/entities/product_entity.dart';
+import 'package:shopping_app/feature/home/presentation/view/product_details.dart';
 import 'package:shopping_app/feature/home/presentation/view_model/home/home_cubit.dart';
 import 'package:shopping_app/feature/home/presentation/widgets/product_item_widget.dart';
 import 'package:shopping_app/feature/home/presentation/widgets/tab_container_widget.dart';
@@ -15,12 +16,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
-        List<HomeCategoryResponseDto> categories = context
-            .read<HomeCubit>()
-            .categories;
-        List<HomeProductsByCategoryIdResponseDto> products = context
-            .read<HomeCubit>()
-            .products;
+        List<CategoryEntity> categories = context.read<HomeCubit>().categories;
+        List<ProductEntity> products = context.read<HomeCubit>().products;
         return Padding(
           padding: EdgeInsetsGeometry.symmetric(horizontal: 16),
           child: Column(
@@ -62,7 +59,7 @@ class HomeScreen extends StatelessWidget {
                 categories: categories,
                 onTap: (index) async {
                   await context.read<HomeCubit>().getProductsByCategory(
-                    categories[index].id!,
+                    categories[index].id,
                   );
                   await context.read<HomeCubit>().getAllProducts();
                 },
@@ -81,7 +78,16 @@ class HomeScreen extends StatelessWidget {
                       ),
                       itemCount: products.length,
                       itemBuilder: (context, index) {
-                        return ProductItemWidget(product: products[index]);
+                        return ProductItemWidget(
+                          product: products[index],
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              ProductDetails.routeName,
+                              arguments: products[index],
+                            );
+                          },
+                        );
                       },
                     ),
                   ),

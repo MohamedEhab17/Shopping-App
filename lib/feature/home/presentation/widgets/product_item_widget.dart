@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:iconly/iconly.dart' show IconlyBold;
 import 'package:shopping_app/core/constants/app_keys.dart';
-import 'package:shopping_app/feature/home/data/model/response/home_products_by_category_id_dto.dart';
+import 'package:shopping_app/feature/home/domain/entities/product_entity.dart';
 
 class ProductItemWidget extends StatelessWidget {
   const ProductItemWidget({
@@ -13,7 +13,7 @@ class ProductItemWidget extends StatelessWidget {
   });
   final void Function()? onTap;
   final void Function()? addToFavorite;
-  final HomeProductsByCategoryIdResponseDto product;
+  final ProductEntity product;
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +47,7 @@ class ProductItemWidget extends StatelessWidget {
                   child: CachedNetworkImage(
                     height: 238,
                     fit: BoxFit.cover,
-                    imageUrl: product.images?.first ?? AppKeys.imageNotFound,
+                    imageUrl: product.images.first ,
                     placeholder: (context, url) =>
                         Center(child: SizedBox.shrink()),
                     errorWidget: (context, url, error) =>
@@ -70,7 +70,7 @@ class ProductItemWidget extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 8, right: 8),
               child: Text(
-                product.title ?? '',
+                product.title ,
                 style: TextStyle(
                   color: Color(0xff212121),
                   fontSize: 16,

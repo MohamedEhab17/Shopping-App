@@ -11,6 +11,15 @@ final class HomeCategorySuccess extends HomeState {}
 
 final class HomeCategoryError extends HomeState {}
 
+
+
+
+final class GetAllProductsLoading extends HomeState {}
+
+final class GetAllProductsSuccess extends HomeState {}
+
+final class GetAllProductsError extends HomeState {}
+
 final class HomeProductsByCategoryLoading extends HomeState {}
 
 final class HomeProductsByCategorySuccess extends HomeState {}
